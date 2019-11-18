@@ -1,0 +1,79 @@
+﻿@page
+@model TGL.WebApp.Pages.Students.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+<h1>Students</h1>
+
+<a asp-page="Add" class="waves-effect waves-light btn">Create new student</a>
+
+<form method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>LastName</th>
+                <th>Nit</th>
+                <th>Age</th>
+                <th>Computers</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Students)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Nit</td>
+                    <td>@item.Age</td>
+
+
+                    <td>
+                        @foreach (var computer in item.Computers)
+                        {
+                            <ul>@computer.Brand | @computer.Model | @computer.Ram | @computer.Cpu</ul>
+                        }
+
+                    </td>
+
+
+                    <td>
+                        <a 
+                           class="waves-effect waves-light btn"
+                           asp-page="Edit"
+                           asp-route-id="@item.Id">
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                class="waves-effect waves-light btn"
+                                asp-page-handler="delete"
+                                asp-route-id="@item.Id">
+                            Delete
+                        </button>
+                    </td>
+
+
+
+                    <td>
+                        <a 
+                           class="waves-effect waves-light btn"
+                           asp-page="../Computers/Add"
+                           asp-route-studentid="@item.Id">
+                            <i class="material-icons">computer</i>
+                        </a>
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</form>
+
+
+
+
